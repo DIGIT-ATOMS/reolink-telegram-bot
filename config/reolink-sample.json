@@ -1,0 +1,11 @@
+{
+    "cams": [
+        {
+            "id": 0,
+            "ip": "1.1.1.1",
+            "user": "root",
+            "password": "root",
+            "name": "my cool cam"
+        }
+    ]
+}
