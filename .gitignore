@@ -129,5 +129,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-./config/reolink.json
-./config/user-whitelist.json
+config/reolink.json
+config/user-whitelist.json
