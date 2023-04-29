@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+    reolink-telegram-bot:
+        build:
+            context: .
+            dockerfile: dockerfile
+        volumes:
+            - ./:/usr/src/app
+        container_name: reolink-telegram-bot
+        command: yarn start

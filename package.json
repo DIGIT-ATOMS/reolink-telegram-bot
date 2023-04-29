@@ -6,7 +6,7 @@
     "author": "Xiryl <fabio@chiarani.it>",
     "license": "MIT",
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && cp ./config/* ./dist/config/",
         "start": "node ./dist/index.js",
         "dev": "ts-node ./index.ts",
         "lint": "eslint . --ext .ts",
