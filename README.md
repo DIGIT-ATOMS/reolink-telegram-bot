@@ -7,7 +7,6 @@
 
 <a href="#">![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)</a>
 <a href="#">![ts](https://flat.badgen.net/badge/Built%20With/TypeScript/blue)</a>
-<a href="#">![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)</a>
 
 </div>
 
