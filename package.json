@@ -16,7 +16,10 @@
     "dependencies": {
         "@types/node": "^18.16.2",
         "dotenv": "^16.0.3",
+        "fluent-ffmpeg": "^2.1.2",
+        "fs": "^0.0.1-security",
         "node-emoji": "^1.11.0",
+        "node-rtsp-recorder": "^1.0.3",
         "telegraf": "^4.12.2",
         "typescript": "^5.0.4"
     },

@@ -1,9 +1,13 @@
+/* eslint-disable */
 import { Context, Telegraf, Markup } from 'telegraf';
 import { message } from 'telegraf/filters';
 import { Update } from 'typegram';
 import * as whitelist from './../config/user-whitelist.json';
 import * as reolink from './../config/reolink.json';
 import * as emoji from 'node-emoji';
+const Recorder = require('node-rtsp-recorder').Recorder
+import fs from 'fs';
+
 
 export class TgBot {
     private getKeyboard = () => {
@@ -46,14 +50,40 @@ export class TgBot {
             try {
                 const btnid = ctx.message.text.split('[')[1].split(']')[0];
                 const cam = reolink.cams.find((it) => it.id === +btnid);
+                console.log("cam:", cam)
                 if (cam) {
-                    ctx.replyWithMarkdownV2(
-                        `${emoji.get('rocket')} foto in arrivo \\!`,
-                        this.getKeyboard()
-                    );
-                    ctx.replyWithPhoto({
-                        url: `http://${cam.ip}/cgi-bin/api.cgi?cmd=Snap&channel=0&rs=x&user=${cam.user}&password=${cam.password}`
-                    });
+                    if(cam.id >= 100) {
+                        fs.unlink('./ezviz/2023/image/2023.jpg', (err) => {
+                            if (err) {
+                                console.log(err)
+                            } //handle your error the way you want to;
+                            var rec = new Recorder({
+                                url: `rtsp://${cam.user}:${cam.password}@${cam.ip}:554/live`,
+                                folder: './',
+                                name: 'ezviz',
+                                type: 'image',
+                                directoryPathFormat: 'YYYY',
+                                fileNameFormat: `YYYY`,
+                            });
+
+                            rec.captureImage(() => {
+                                console.log('Image Captured');
+                                ctx.replyWithPhoto({
+                                    source: `./ezviz/2023/image/2023.jpg`
+                                });
+                            });
+                        });
+                    } else {
+                        ctx.replyWithMarkdownV2(
+                            `${emoji.get('rocket')} foto in arrivo \\!`,
+                            this.getKeyboard()
+                        );
+                        ctx.replyWithPhoto({
+                            url: `http://${cam.ip}/cgi-bin/api.cgi?cmd=Snap&channel=0&rs=x&user=${cam.user}&password=${cam.password}`
+                        });
+                    }
+
+
                 } else {
                     ctx.replyWithMarkdownV2(
                         'Cam non trovata',
