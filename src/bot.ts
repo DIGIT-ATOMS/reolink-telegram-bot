@@ -53,7 +53,7 @@ export class TgBot {
                 console.log("cam:", cam)
                 if (cam) {
                     if(cam.id >= 100) {
-                        fs.unlink('./ezviz/2023/image/2023.jpg', (err) => {
+                        fs.unlink('./ezviz/2024/image/2024.jpg', (err) => {
                             if (err) {
                                 console.log(err)
                             } //handle your error the way you want to;
@@ -68,8 +68,19 @@ export class TgBot {
 
                             rec.captureImage(() => {
                                 console.log('Image Captured');
-                                ctx.replyWithPhoto({
-                                    source: `./ezviz/2023/image/2023.jpg`
+
+                                // Check if the file exists
+                                fs.access('./ezviz/2024/image/2024.jpg', fs.constants.F_OK, (err) => {
+                                    if (err) {
+                                        // Handle error (e.g., file doesn't exist)
+                                        console.error('Error accessing file:', err);
+                                    } else {
+                                        // File exists, send it
+                                        console.log('Sending photo:', './ezviz/2024/image/2024.jpg');
+                                        ctx.replyWithPhoto({
+                                            source: './ezviz/2024/image/2024.jpg'
+                                        });
+                                    }
                                 });
                             });
                         });
